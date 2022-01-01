@@ -14,32 +14,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             {{-- All image here --}}
-                            <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Image Name</th>
-      <th scope="col">image </th>
-      <th scope="col">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    @php($i = 1)
-    @foreach ($images as $image)
-      
-   
-    <tr>
-      <th scope="row">{{$i++}}</th>
-      <td>{{$image->name}}</td>
-      <td>{{$image->description}}</td>
-      <td><img src="{{asset($image->img)}}" alt="" style="width: 150px; height:100px"></td>
-      <td><a href="{{url('image/delete/'.$image->id)}}" class="btn btn-danger">Delete</a></td>
-      <td><a href="{{url('image/edit/'.$image->id)}}" class="btn btn-warning">Edit</a></td>
-      
-    </tr>
-    @endforeach
-  </tbody>
-</table>
+                       
 
                         </div>
                         <div class="col-sm-6">
@@ -50,32 +25,41 @@
             @endif
                                 {{-- Add image form here --}}
 
-                                <form action="{{route('store.image')}}" method="POST" enctype="multipart/form-data">
+                                <form action="{{url('image/update/'.$images->id)}}" method="POST" enctype="multipart/form-data">
                                     @csrf
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Image Name</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" name="name" aria-describedby="emailHelp">
+    <input type="text" class="form-control" id="exampleInputEmail1" name="name" value="{{$images->name}}" aria-describedby="emailHelp">
     @error('name')
     <span class="text-danger">{{$message}}</span>    
     @enderror
     
   </div>
   <div class="mb-3">
+    <img src="{{asset($images->img)}}" alt="" style="width: 200px; height:150px;">
+   
+  </div>
+  <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">upload image</label>
-    <input type="file" class="form-control" name="img" id="exampleInputPassword1">
+    <input type="file" class="form-control" name="img" value="{{$images->img}}" id="exampleInputPassword1">
     @error('img')
     <span class="text-danger">{{$message}}</span>    
     @enderror
   </div>
+  <div class="mb-3">
+    
+    <input type="hidden" class="form-control" name="old_img" value="{{$images->img}}" id="exampleInputPassword1">
+   
+  </div>
    <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Description</label>
-    <input type="text" class="form-control" name="description" id="exampleInputPassword1">
+    <input type="text" class="form-control" name="description" value="{{$images->description}}" id="exampleInputPassword1">
     @error('description')
     <span class="text-danger">{{$message}}</span>    
     @enderror
   </div>
  
-  <button type="submit" class="btn btn-primary">upload image</button>
+  <button type="submit" class="btn btn-primary">Update image</button>
 
  
 </form>

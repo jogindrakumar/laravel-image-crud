@@ -28,3 +28,13 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::get('/image/all',[ImageController::class,'AllImage'])->name('all.image');
 
 Route::post('/image/add',[ImageController::class,'AddImage'])->name('store.image');
+
+// edit route
+
+Route::get('/image/edit/{id}',[ImageController::class,'Edit']);
+
+Route::post('/image/update/{id}',[ImageController::class,'Update']);
+
+// image delete route
+
+Route::get('/image/delete/{id}',[ImageController::class,'Delete']);
